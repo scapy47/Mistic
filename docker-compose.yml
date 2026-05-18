@@ -1,0 +1,19 @@
+services:
+  # The Redis engine for your real-time sync
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # A visual UI to see your data (optional but highly recommended)
+  redis-insight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - "8001:5540"
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
