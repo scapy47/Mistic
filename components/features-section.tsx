@@ -821,7 +821,9 @@ function GhostWritingEditorPlayground() {
   const renderMockMarkdown = (mdStr: string) => {
     // Helper to handle inline bolding
     const renderSpans = (text: string) => {
+      // Splits by ** but keeps the delimiter in the array
       const parts = text.split(/(\*\*.*?\*\*)/g);
+
       return parts.map((part, i) => {
         if (part.startsWith("**") && part.endsWith("**")) {
           return (
@@ -855,14 +857,20 @@ function GhostWritingEditorPlayground() {
           </h3>
         );
       }
-      if (line.startsWith("1. ") || line.startsWith("2. ")) {
+      const numberedMatch = line.match(/^(\d+\.\s+)(.*)/);
+
+      if (numberedMatch) {
+        const [_, prefix, content] = numberedMatch;
         return (
           <div
             key={idx}
             className="pl-4 text-[10px] text-muted-foreground leading-relaxed flex items-start gap-1 font-mono"
           >
-            <span className="text-indigo-400">{line.slice(0, 3)}</span>
-            <span>{line.slice(3)}</span>
+            {/* The number (prefix) remains mono and indigo */}
+            <span className="text-indigo-400">{prefix}</span>
+
+            {/* The content is parsed for bold tags and switched to sans-serif for better readability */}
+            <span className="font-sans">{renderSpans(content)}</span>
           </div>
         );
       }
