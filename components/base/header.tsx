@@ -69,7 +69,7 @@ export default function Header() {
     { name: "Docs", href: "/#docs" },
   ];
 
-  if (pathname?.startsWith("/app")) {
+  if (pathname?.startsWith("/application")) {
     return null;
   }
 
@@ -114,7 +114,7 @@ export default function Header() {
           <div className="hidden md:block">
             <MagneticButton>
               <Link
-                href="/app"
+                href="/application"
                 className="group relative flex h-9 items-center justify-center gap-1.5 overflow-hidden rounded-full border border-border bg-[#121214] px-4 text-xs font-semibold text-white transition-all duration-300 hover:border-primary hover:shadow-[0_0_12px_rgba(139,92,246,0.2)]"
               >
                 <span>Launch App</span>
@@ -155,7 +155,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/app"
+              href="/application"
               onClick={() => setIsOpen(false)}
               className="mt-2 flex h-10 w-full items-center justify-center gap-1.5 rounded-full border border-primary bg-primary/10 text-sm font-semibold text-white hover:bg-primary transition-all duration-300"
             >

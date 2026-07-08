@@ -54,7 +54,7 @@ export default function Sidebar({
               </span>
               <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             </Link>
-            
+
             {!collapsed && (
               <span className="text-[8px] bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.5 rounded font-mono font-bold tracking-widest uppercase">
                 v1.0
@@ -82,23 +82,31 @@ export default function Sidebar({
                     <motion.span
                       layoutId="sidebar-active-pill"
                       className="absolute inset-0 bg-[#121214] rounded-lg border border-white/5 shadow-md"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   )}
 
                   {/* Tab Icon and Label */}
                   <span className="flex items-center gap-3 relative z-10">
-                    <IconComponent className={`size-4 shrink-0 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
+                    <IconComponent
+                      className={`size-4 shrink-0 ${isActive ? "text-primary" : "text-muted-foreground"}`}
+                    />
                     {!collapsed && <span>{item.label}</span>}
                   </span>
 
                   {/* Badge */}
                   {!collapsed && item.badge && (
-                    <span className={`text-[8px] font-bold px-1.5 py-0.2 rounded font-mono relative z-10 shrink-0 select-none ${
-                      isActive 
-                        ? "bg-primary/20 text-white" 
-                        : "bg-[#18181c] text-muted-foreground/60 border border-border"
-                    }`}>
+                    <span
+                      className={`text-[8px] font-bold px-1.5 py-0.2 rounded font-mono relative z-10 shrink-0 select-none ${
+                        isActive
+                          ? "bg-primary/20 text-white"
+                          : "bg-[#18181c] text-muted-foreground/60 border border-border"
+                      }`}
+                    >
                       {item.badge}
                     </span>
                   )}
@@ -115,19 +123,27 @@ export default function Sidebar({
             onClick={() => setCollapsed(!collapsed)}
             className="w-full flex items-center justify-center p-2 rounded-lg border border-border bg-[#121214] hover:bg-[#1c1c20] hover:border-white/20 text-muted-foreground hover:text-white transition-all cursor-pointer h-9 shrink-0"
           >
-            {collapsed ? <ChevronRight className="size-4" /> : <ChevronLeft className="size-4" />}
+            {collapsed ? (
+              <ChevronRight className="size-4" />
+            ) : (
+              <ChevronLeft className="size-4" />
+            )}
           </button>
 
           {/* User Account block */}
           <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#121214]/50 border border-border/40 select-none h-11 overflow-hidden shrink-0">
             <div className="flex items-center gap-2.5 min-w-0">
               <span className="size-6 rounded-full bg-primary/20 text-primary border border-primary/20 flex items-center justify-center text-[10px] font-bold font-mono shrink-0">
-                TB
+                LC
               </span>
               {!collapsed && (
                 <div className="flex flex-col min-w-0 text-left">
-                  <span className="text-[11px] font-bold text-white truncate font-mono">Tarun B.</span>
-                  <span className="text-[9px] text-muted-foreground/75 truncate font-mono">Lead Designer</span>
+                  <span className="text-[11px] font-bold text-white truncate font-mono">
+                    Lily Chou
+                  </span>
+                  <span className="text-[9px] text-muted-foreground/75 truncate font-mono">
+                    Lead Designer
+                  </span>
                 </div>
               )}
             </div>
@@ -165,11 +181,15 @@ export default function Sidebar({
                 />
               )}
 
-              <IconComponent className={`size-4.5 mb-1 relative z-10 ${isActive ? "text-primary animate-pulse" : "text-muted-foreground"}`} />
-              <span className={`text-[8px] tracking-wider relative z-10 ${isActive ? "text-white font-bold" : "text-muted-foreground"}`}>
+              <IconComponent
+                className={`size-4.5 mb-1 relative z-10 ${isActive ? "text-primary animate-pulse" : "text-muted-foreground"}`}
+              />
+              <span
+                className={`text-[8px] tracking-wider relative z-10 ${isActive ? "text-white font-bold" : "text-muted-foreground"}`}
+              >
                 {item.label}
               </span>
-              
+
               {item.badge === "LIVE" && (
                 <span className="absolute top-1 right-2 w-1.5 h-1.5 rounded-full bg-primary" />
               )}

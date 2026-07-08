@@ -8,7 +8,7 @@ export default function Footer() {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
-  if (pathname?.startsWith("/app")) {
+  if (pathname?.startsWith("/application")) {
     return null;
   }
 
@@ -25,7 +25,9 @@ export default function Footer() {
         {/* Left Side: Brand and Copyright */}
         <div className="flex flex-col items-center gap-2 md:items-start">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold tracking-wider text-white">MISTIC</span>
+            <span className="text-sm font-semibold tracking-wider text-white">
+              MISTIC
+            </span>
             <span className="h-1 w-1 rounded-full bg-primary" />
           </div>
           <p className="text-xs text-muted-foreground">
