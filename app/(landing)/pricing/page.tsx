@@ -7,7 +7,6 @@ import {
 	Cpu,
 	Globe,
 	HelpCircle,
-	Shield,
 	Sparkles,
 	Zap,
 } from "lucide-react";
@@ -250,6 +249,7 @@ export default function PricingPage() {
 					className="mt-8 flex items-center justify-center gap-3 bg-[#121214] p-1 rounded-full border border-border"
 				>
 					<button
+						type="button"
 						onClick={() => setBillingPeriod("monthly")}
 						className={`relative rounded-full px-4 py-1.5 text-xs font-semibold transition-colors z-10 font-mono ${
 							billingPeriod === "monthly"
@@ -267,6 +267,7 @@ export default function PricingPage() {
 						Monthly
 					</button>
 					<button
+						type="button"
 						onClick={() => setBillingPeriod("yearly")}
 						className={`relative rounded-full px-4 py-1.5 text-xs font-semibold transition-colors z-10 font-mono flex items-center gap-1.5 ${
 							billingPeriod === "yearly"
@@ -364,7 +365,7 @@ export default function PricingPage() {
 								<ul className="flex flex-col gap-3 mb-8">
 									{plan.features.map((feature, idx) => (
 										<li
-											key={idx}
+											key={idx.toString()}
 											className="flex items-start gap-2.5 text-xs text-muted-foreground leading-normal"
 										>
 											<Check className="size-4 text-primary shrink-0 mt-0.5" />
@@ -523,7 +524,7 @@ export default function PricingPage() {
 						},
 					].map((faq, idx) => (
 						<div
-							key={idx}
+							key={idx.toString()}
 							className="flex flex-col gap-2 p-5 rounded-lg border border-border bg-[#121214]"
 						>
 							<div className="flex gap-2 items-start">

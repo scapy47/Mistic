@@ -4,21 +4,12 @@ import {
 	AnimatePresence,
 	motion,
 	useMotionValue,
-	useScroll,
 	useSpring,
-	useTransform,
 } from "framer-motion";
 import {
 	ArrowRight,
-	CheckCircle2,
 	FileText,
-	GitBranch,
-	Layers,
-	Link as LinkIcon,
-	MessageSquare,
 	MousePointer2,
-	Play,
-	Plus,
 	PlusCircle,
 	Sparkles,
 	Users,
@@ -26,7 +17,6 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import FeaturesSection from "@/components/features-section";
-import { Button } from "@/components/ui/button";
 
 // Magnetic cursor pull for Hero CTAs
 function MagneticWrapper({
@@ -71,12 +61,13 @@ function MagneticWrapper({
 }
 
 // Typist simulator for the workspace mockup
+const words = [
+	"Synthesize user feedback into Q3 strategy...",
+	"Define technical specs for spatial multiplayer editor...",
+	"Design minimalist and physics-based interactions...",
+];
+
 function TypingSimulator() {
-	const words = [
-		"Synthesize user feedback into Q3 strategy...",
-		"Define technical specs for spatial multiplayer editor...",
-		"Design minimalist and physics-based interactions...",
-	];
 	const [currentWordIdx, setCurrentWordIdx] = useState(0);
 	const [currentText, setCurrentText] = useState("");
 	const [isDeleting, setIsDeleting] = useState(false);
@@ -125,7 +116,7 @@ export default function Home() {
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [draggedCardPos, setDraggedCardPos] = useState({ x: 0, y: 0 });
 
-	const featureRef = useRef<HTMLDivElement>(null);
+	const _featureRef = useRef<HTMLDivElement>(null);
 
 	// Real-time workspace activities generator
 	useEffect(() => {
@@ -358,7 +349,7 @@ export default function Home() {
 													top: -120,
 													bottom: 120,
 												}}
-												onDrag={(event, info) => {
+												onDrag={(_event, info) => {
 													setDraggedCardPos({
 														x: info.point.x,
 														y: info.point.y,
@@ -419,7 +410,7 @@ export default function Home() {
 									<AnimatePresence initial={false}>
 										{workspaceLogs.map((log, idx) => (
 											<motion.div
-												key={log + idx}
+												key={log + idx.toString()}
 												initial={{ opacity: 0, x: 20, scale: 0.95 }}
 												animate={{ opacity: 1, x: 0, scale: 1 }}
 												exit={{ opacity: 0, x: -20, scale: 0.95 }}
