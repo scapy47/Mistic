@@ -1,4 +1,4 @@
 {
-    "biome.lsp.trace.server": "messages",
-    "js/ts.tsdk.path": "node_modules/typescript/lib"
+  "biome.lsp.trace.server": "messages",
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
