@@ -9,8 +9,6 @@ import {
 	LogOut,
 	PenTool,
 	Phone,
-	Sparkles,
-	User,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -69,6 +67,7 @@ export default function Sidebar({
 							const isActive = activeTab === item.id;
 							return (
 								<button
+									type="button"
 									key={item.id}
 									onClick={() => setActiveTab(item.id as SidebarTab)}
 									className={`w-full flex items-center justify-between p-3 rounded-lg text-xs transition-colors font-mono relative ${
@@ -120,6 +119,7 @@ export default function Sidebar({
 				<div className="p-3 flex flex-col gap-2 border-t border-border bg-[#0C0C0E]/50">
 					{/* Collapse/Expand trigger toggler */}
 					<button
+						type="button"
 						onClick={() => setCollapsed(!collapsed)}
 						className="w-full flex items-center justify-center p-2 rounded-lg border border-border bg-[#121214] hover:bg-[#1c1c20] hover:border-white/20 text-muted-foreground hover:text-white transition-all cursor-pointer h-9 shrink-0"
 					>
@@ -150,6 +150,7 @@ export default function Sidebar({
 
 						{!collapsed && (
 							<button
+								type="button"
 								onClick={() => alert("Logging out of SaaS session...")}
 								className="text-muted-foreground hover:text-red-400 p-1 shrink-0 transition-colors"
 								title="Disconnect"
@@ -168,6 +169,7 @@ export default function Sidebar({
 					const isActive = activeTab === item.id;
 					return (
 						<button
+							type="button"
 							key={item.id}
 							onClick={() => setActiveTab(item.id as SidebarTab)}
 							className="flex flex-col items-center justify-center w-16 h-12 relative select-none font-mono"

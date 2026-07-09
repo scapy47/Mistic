@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-	ArrowRight,
 	Calendar,
 	Database,
 	Download,
@@ -10,7 +9,6 @@ import {
 	FileText,
 	Image,
 	Info,
-	Layers,
 	Lock,
 	Search,
 	ShieldAlert,
@@ -28,6 +26,7 @@ type VaultItem = {
 	locked: boolean;
 	owner: string;
 	date: string;
+	// biome-ignore lint/suspicious/noExplicitAny: ask the guy who wrote this
 	icon: any;
 	hash: string;
 };
@@ -167,7 +166,9 @@ export default function VaultView() {
 								const active = filterType === pill.id;
 								return (
 									<button
+										type="button"
 										key={pill.id}
+										// biome-ignore lint/suspicious/noExplicitAny: ask the the guy who wrote this
 										onClick={() => setFilterType(pill.id as any)}
 										className={`relative px-3 py-1 rounded-md text-[10px] font-bold transition-all duration-200 ${
 											active
@@ -247,6 +248,7 @@ export default function VaultView() {
 											{/* Security toggler */}
 											<td className="p-3.5 text-right pr-4">
 												<button
+													type="button"
 													onClick={(e) => handleToggleLock(file.id, e)}
 													className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[9px] font-bold font-mono uppercase tracking-wider transition-all duration-300 border ${
 														file.locked
@@ -299,7 +301,8 @@ export default function VaultView() {
 				</div>
 
 				{/* Drag & Drop simulated upload zone */}
-				<div
+				<button
+					type="button"
 					onDragOver={(e) => {
 						e.preventDefault();
 						setDragActive(true);
@@ -325,7 +328,7 @@ export default function VaultView() {
 					<span className="text-[9px] text-muted-foreground font-mono mt-0.5">
 						Auto-parses and logs node metadata locally. Max payload: 50MB.
 					</span>
-				</div>
+				</button>
 			</div>
 
 			{/* File Inspector Detail Panel (Framer Motion Drawer) */}
@@ -344,6 +347,7 @@ export default function VaultView() {
 								<Info className="size-3.5 text-primary" /> Block Inspector
 							</span>
 							<button
+								type="button"
 								onClick={() => setSelectedFile(null)}
 								className="text-muted-foreground hover:text-white p-1 rounded hover:bg-[#18181c]"
 							>
@@ -424,6 +428,7 @@ export default function VaultView() {
 						{/* Actions Footer */}
 						<div className="p-4 border-t border-border bg-[#18181c]/60 flex flex-col gap-2">
 							<button
+								type="button"
 								onClick={(e) => handleToggleLock(selectedFile.id, e)}
 								className={`w-full flex h-9 items-center justify-center gap-1.5 rounded text-xs font-bold font-mono uppercase tracking-wider transition-colors border ${
 									selectedFile.locked
@@ -443,6 +448,7 @@ export default function VaultView() {
 							</button>
 
 							<button
+								type="button"
 								onClick={() => alert(`Downloading ${selectedFile.name}...`)}
 								className="w-full flex h-9 items-center justify-center gap-1.5 rounded border border-border bg-[#121214] text-xs font-bold font-mono text-white hover:bg-[#1c1c20] hover:border-white/20 transition-all"
 							>

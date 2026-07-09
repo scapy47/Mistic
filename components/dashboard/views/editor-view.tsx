@@ -1,19 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
 	Bookmark,
 	CheckCircle,
-	Eye,
 	FileText,
 	FolderOpen,
 	MessageSquare,
 	Plus,
-	Sparkles,
-	Trash2,
 	Users,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function EditorView() {
 	const [activeDoc, setActiveDoc] = useState("q3_growth_sprint.mist");
@@ -94,7 +91,10 @@ export default function EditorView() {
 						<span className="text-[10px] font-extrabold font-mono text-muted-foreground tracking-wider uppercase flex items-center gap-1.5">
 							<FolderOpen className="size-3.5 text-primary" /> Document Tree
 						</span>
-						<button className="text-muted-foreground hover:text-white p-1 rounded hover:bg-[#121214]">
+						<button
+							type="button"
+							className="text-muted-foreground hover:text-white p-1 rounded hover:bg-[#121214]"
+						>
 							<Plus className="size-3.5" />
 						</button>
 					</div>
@@ -105,6 +105,7 @@ export default function EditorView() {
 							const active = activeDoc === doc.id;
 							return (
 								<button
+									type="button"
 									key={doc.id}
 									onClick={() => setActiveDoc(doc.id)}
 									className={`w-full flex items-center justify-between p-2 rounded text-xs font-mono transition-colors text-left relative ${
@@ -232,7 +233,7 @@ export default function EditorView() {
 					{/* Comments List */}
 					<div className="p-4 flex flex-col gap-4">
 						{comments.map((comment, index) => (
-							<div key={index} className="flex gap-2.5 items-start">
+							<div key={index.toString()} className="flex gap-2.5 items-start">
 								<span
 									className={`size-5 rounded-full ${comment.color} flex items-center justify-center text-[9px] font-bold text-white shrink-0 font-mono`}
 								>
@@ -263,7 +264,10 @@ export default function EditorView() {
 						placeholder="Add discussion token..."
 						className="w-full bg-[#121214] border border-border rounded px-3 py-1.5 text-xs text-white placeholder-muted-foreground outline-none focus:border-primary/50 transition-colors"
 					/>
-					<button className="bg-primary text-white text-[10px] font-bold rounded py-1.5 hover:bg-primary/95 transition-colors border border-primary/20">
+					<button
+						type="button"
+						className="bg-primary text-white text-[10px] font-bold rounded py-1.5 hover:bg-primary/95 transition-colors border border-primary/20"
+					>
 						Submit Node Comment
 					</button>
 				</div>

@@ -1,9 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
 	Circle,
-	Eye,
 	Grid,
 	MousePointer2,
 	Palette,
@@ -14,7 +13,7 @@ import {
 	Trash2,
 	Undo2,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type ShapeType = "pen" | "rect" | "circle";
 type DrawingElement = {
@@ -51,25 +50,7 @@ export default function SketchView() {
 		{ name: "Coral", value: "#F87171" },
 	];
 
-	// Initialize Canvas & redraw loop
-	useEffect(() => {
-		const canvas = canvasRef.current;
-		if (!canvas) return;
-		const ctx = canvas.getContext("2d");
-		if (!ctx) return;
-
-		// Handle high DPI displays
-		const rect = canvas.getBoundingClientRect();
-		canvas.width = rect.width * window.devicePixelRatio;
-		canvas.height = rect.height * window.devicePixelRatio;
-		ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-		ctx.lineCap = "round";
-		ctx.lineJoin = "round";
-
-		redraw();
-	}, [elements]);
-
-	const redraw = () => {
+	const redraw = useCallback(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
 		const ctx = canvas.getContext("2d");
@@ -146,7 +127,33 @@ export default function SketchView() {
 				ctx.stroke();
 			}
 		}
-	};
+	}, [
+		// Draw all completed elements
+		elements.forEach,
+		currentElement?.width,
+		currentElement?.points[1],
+		currentElement?.type,
+		currentElement?.color,
+		currentElement,
+	]);
+
+	// Initialize Canvas & redraw loop
+	useEffect(() => {
+		const canvas = canvasRef.current;
+		if (!canvas) return;
+		const ctx = canvas.getContext("2d");
+		if (!ctx) return;
+
+		// Handle high DPI displays
+		const rect = canvas.getBoundingClientRect();
+		canvas.width = rect.width * window.devicePixelRatio;
+		canvas.height = rect.height * window.devicePixelRatio;
+		ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+		ctx.lineCap = "round";
+		ctx.lineJoin = "round";
+
+		redraw();
+	}, [redraw]);
 
 	// Simulate multiplayer cursor & automated drawings
 	useEffect(() => {
@@ -267,6 +274,7 @@ export default function SketchView() {
 						const active = tool === t.id;
 						return (
 							<button
+								type="button"
 								key={t.id}
 								onClick={() => setTool(t.id as ShapeType)}
 								className={`relative px-3 py-1.5 rounded-full transition-colors flex items-center justify-center ${
@@ -291,6 +299,7 @@ export default function SketchView() {
 
 				<div className="flex items-center gap-2">
 					<button
+						type="button"
 						onClick={handleUndo}
 						disabled={elements.length === 0}
 						className="p-2 rounded border border-border bg-[#121214] text-muted-foreground hover:text-white hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -300,6 +309,7 @@ export default function SketchView() {
 					</button>
 
 					<button
+						type="button"
 						onClick={handleClear}
 						disabled={elements.length === 0}
 						className="p-2 rounded border border-border bg-[#121214] text-muted-foreground hover:text-red-400 hover:border-red-500/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -348,6 +358,7 @@ export default function SketchView() {
 								const active = color === c.value;
 								return (
 									<button
+										type="button"
 										key={c.name}
 										onClick={() => setColor(c.value)}
 										className={`size-6 rounded-full border flex items-center justify-center transition-transform hover:scale-110 ${
@@ -380,6 +391,7 @@ export default function SketchView() {
 								const active = width === w;
 								return (
 									<button
+										type="button"
 										key={w}
 										onClick={() => setWidth(w)}
 										className={`flex-1 rounded border text-[10px] py-1 text-center transition-colors font-bold ${

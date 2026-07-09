@@ -96,8 +96,8 @@ export function TestSignUp({
 						<ComboboxItem
 							key={profile.id}
 							value={profile}
-							disabled={profile.status == "online"}
-							className={`transition-opacity ${profile.status == "online" ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
+							disabled={profile.status === "online"}
+							className={`transition-opacity ${profile.status === "online" ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
 						>
 							<Item size="xs" className="p-0">
 								<ItemContent>

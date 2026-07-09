@@ -24,7 +24,7 @@ function BouncingSoundWave({ active }: { active: boolean }) {
 		<div className="flex items-center gap-0.5 h-4 select-none">
 			{bars.map((_, i) => (
 				<motion.div
-					key={i}
+					key={i.toString()}
 					animate={
 						active ? { height: [4, 16, 6, 14, 4][i % 5] } : { height: 3 }
 					}
@@ -203,7 +203,10 @@ export default function CallsView() {
 						<Users className="size-3.5 text-primary animate-pulse" />
 						<span>4 Connected Players</span>
 					</div>
-					<button className="text-muted-foreground hover:text-white p-1">
+					<button
+						type="button"
+						className="text-muted-foreground hover:text-white p-1"
+					>
 						<Maximize2 className="size-4" />
 					</button>
 				</div>
@@ -343,7 +346,10 @@ export default function CallsView() {
 							{/* Chat Messages */}
 							<div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3.5 scrollbar-thin">
 								{messages.map((m, idx) => (
-									<div key={idx} className="flex flex-col gap-1 text-xs">
+									<div
+										key={idx.toString()}
+										className="flex flex-col gap-1 text-xs"
+									>
 										<div className="flex justify-between items-baseline">
 											<span className="font-bold text-primary font-mono">
 												{m.user}
@@ -436,6 +442,7 @@ export default function CallsView() {
 				{/* Sidebar trigger */}
 				<div className="flex items-center gap-3">
 					<button
+						type="button"
 						onClick={() => setChatOpen(!chatOpen)}
 						className={`relative flex h-10 px-4 items-center justify-center gap-2 rounded-lg border text-xs font-bold font-mono transition-all duration-300 ${
 							chatOpen
@@ -447,7 +454,10 @@ export default function CallsView() {
 						<span>Chat ({messages.length})</span>
 					</button>
 
-					<button className="size-10 rounded-lg border border-border bg-[#18181c] text-muted-foreground hover:text-white hover:border-white/20 flex items-center justify-center transition-colors">
+					<button
+						type="button"
+						className="size-10 rounded-lg border border-border bg-[#18181c] text-muted-foreground hover:text-white hover:border-white/20 flex items-center justify-center transition-colors"
+					>
 						<Settings className="size-4" />
 					</button>
 				</div>

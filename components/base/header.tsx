@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -125,6 +125,7 @@ export default function Header() {
 
 					{/* Mobile menu trigger */}
 					<button
+						type="button"
 						onClick={() => setIsOpen(!isOpen)}
 						className="flex items-center justify-center p-2 text-muted-foreground hover:text-white md:hidden"
 						aria-label="Toggle navigation menu"
