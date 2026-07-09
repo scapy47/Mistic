@@ -4,12 +4,22 @@ import {
 	AnimatePresence,
 	motion,
 	useMotionValue,
+
+	useScroll,
 	useSpring,
+	useTransform,
 } from "framer-motion";
 import {
 	ArrowRight,
+	CheckCircle2,
 	FileText,
+	GitBranch,
+	Layers,
+	Link as LinkIcon,
+	MessageSquare,
 	MousePointer2,
+	Play,
+	Plus,
 	PlusCircle,
 	Sparkles,
 	Users,
@@ -104,19 +114,24 @@ function TypingSimulator() {
 	);
 }
 
+// Define an interface for the log object
+interface WorkspaceLog {
+	id: string;
+	message: string;
+}
+
 export default function Home() {
-	const [workspaceLogs, setWorkspaceLogs] = useState<string[]>([
-		"Chloe connected to canvas",
-		"Alex edited System Goals block",
-		"Devon completed Review Task #42",
+	// Initialize with unique IDs, So we can have unique ID in map() function
+	const [workspaceLogs, setWorkspaceLogs] = useState<WorkspaceLog[]>([
+		{ id: "init-1", message: "Chloe connected to canvas" },
+		{ id: "init-2", message: "Alex edited System Goals block" },
+		{ id: "init-3", message: "Devon completed Review Task #42" },
 	]);
 	const [email, setEmail] = useState("");
 	const [isEmailFocused, setIsEmailFocused] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [draggedCardPos, setDraggedCardPos] = useState({ x: 0, y: 0 });
-
-	const _featureRef = useRef<HTMLDivElement>(null);
 
 	// Real-time workspace activities generator
 	useEffect(() => {
@@ -130,7 +145,19 @@ export default function Home() {
 		];
 		const interval = setInterval(() => {
 			const randomAction = actions[Math.floor(Math.random() * actions.length)];
-			setWorkspaceLogs((prev) => [randomAction, prev[0], prev[1]].slice(0, 3));
+
+			// Generate a distinct timestamp/ID combo for each newly injected log
+			const newLog: WorkspaceLog = {
+				id: `${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+				message: randomAction,
+			};
+			// Keep the top 3 items intact with their original unique IDs
+			// Safely update state using the previous values
+			setWorkspaceLogs((prev) => {
+				const first = prev[0];
+				const second = prev[1];
+				return [newLog, first, second].filter(Boolean).slice(0, 3);
+			});
 		}, 4500);
 		return () => clearInterval(interval);
 	}, []);
@@ -350,6 +377,7 @@ export default function Home() {
 													bottom: 120,
 												}}
 												onDrag={(_event, info) => {
+
 													setDraggedCardPos({
 														x: info.point.x,
 														y: info.point.y,
@@ -408,9 +436,9 @@ export default function Home() {
 
 								<div className="flex flex-col gap-3.5 h-50 overflow-hidden">
 									<AnimatePresence initial={false}>
-										{workspaceLogs.map((log, idx) => (
+										{workspaceLogs.map((log) => (
 											<motion.div
-												key={log + idx.toString()}
+												key={log.id}
 												initial={{ opacity: 0, x: 20, scale: 0.95 }}
 												animate={{ opacity: 1, x: 0, scale: 1 }}
 												exit={{ opacity: 0, x: -20, scale: 0.95 }}
@@ -423,7 +451,7 @@ export default function Home() {
 											>
 												<div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
 												<span className="text-foreground/90 font-medium">
-													{log}
+													{log.message}
 												</span>
 											</motion.div>
 										))}
@@ -552,8 +580,8 @@ export default function Home() {
 								exit={{ opacity: 0, y: -10 }}
 								className="text-xs font-semibold text-emerald-400 mt-4"
 							>
-								✨ Thank you! {`We've`} reserved your early access spot. Check
-								your inbox soon.
+								✨ Thank you! We've reserved your early access spot. Check your
+								inbox soon.
 							</motion.p>
 						)}
 					</AnimatePresence>
